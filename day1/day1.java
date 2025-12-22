@@ -6,7 +6,14 @@ import java.util.Scanner;
 
 public class Day1 {
     public static void main(String[] args) {
-        String filename = args[0];
+        String part = args[0];
+        if (part.equals("part1")) {
+            part1(args);
+        }
+    }
+
+    public static void part1(String[] args) {
+        String filename = args[1];
         File myFile = new File(filename);
         List<String> commands = new ArrayList<>();
         
