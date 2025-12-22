@@ -21,6 +21,10 @@ public class Day1 {
         System.out.println(commands);
 
         int pos = 50;
+        for (String command : commands) {
+            String direction = command.substring(0,1);
+            int rotationAmount = Integer.parseInt(command.substring(1));
+        }
 
     }
 
