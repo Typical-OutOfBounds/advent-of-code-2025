@@ -21,14 +21,28 @@ public class Day1 {
         System.out.println(commands);
 
         int pos = 50;
+        int zeroCount = 0;
         for (String command : commands) {
             String direction = command.substring(0,1);
             int rotationAmount = Integer.parseInt(command.substring(1));
+            pos = rotate(pos, direction, rotationAmount);
+            System.out.println(pos);
         }
 
     }
 
-    public static void roate(int pos, String direction, int rotationAmount) {
-
+    public static int rotate(int pos, String direction, int rotationAmount) {
+        if (direction.equals("L")) {
+            pos = pos - rotationAmount;
+            if (pos < 0) {
+                pos = 100 + pos;
+            }
+        } else {
+            pos = pos + rotationAmount;
+            if (pos > 99) {
+                pos = pos - 100;
+            }
+        }
+        return pos;
     }
 }
