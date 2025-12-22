@@ -26,9 +26,12 @@ public class Day1 {
             String direction = command.substring(0,1);
             int rotationAmount = Integer.parseInt(command.substring(1));
             pos = rotate(pos, direction, rotationAmount);
-            System.out.println(pos);
+            if (pos == 0) {
+                zeroCount = zeroCount + 1;
+            }
         }
-
+        
+        System.out.println(zeroCount);
     }
 
     public static int rotate(int pos, String direction, int rotationAmount) {
