@@ -35,15 +35,18 @@ public class Day1 {
     }
 
     public static int rotate(int pos, String direction, int rotationAmount) {
+        if (rotationAmount > 99) {
+            rotationAmount = rotationAmount % 100;
+        }
         if (direction.equals("L")) {
             pos = pos - rotationAmount;
             if (pos < 0) {
-                pos = 100 - (pos % 100) * -1;
+                pos = 100 + pos;
             }
         } else {
             pos = pos + rotationAmount;
             if (pos > 99) {
-                pos = pos % 100;
+                pos = pos - 100;
             }
         }
         return pos;
