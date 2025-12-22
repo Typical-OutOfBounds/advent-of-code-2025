@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Map;
 
 public class Day1 {
     public static void main(String[] args) {
@@ -74,12 +75,34 @@ public class Day1 {
         for (String command : commands) {
             String direction = command.substring(0,1);
             int rotationAmount = Integer.parseInt(command.substring(1));
-            pos = rotate(pos, direction, rotationAmount);
-            if (pos == 0) {
-                zeroCount = zeroCount + 1;
-            }
+            Map.Entry<Integer, Integer> result = rotate2(pos, direction, rotationAmount);
+            pos = result.getKey();
+            zeroCount = zeroCount + result.getValue();
         }
         
         System.out.println(zeroCount);
+    }
+
+    public static Map.Entry<Integer, Integer> rotate2(int pos, String direction, int rotationAmount) {
+        // key is pos, value is zeroCount
+        int zeroCount = 0;
+        if (rotationAmount > 99) {
+            zeroCount += rotationAmount / 100;
+            rotationAmount = rotationAmount % 100;
+        }
+        if (direction.equals("L")) {
+            pos = pos - rotationAmount;
+            if (pos < 0) {
+                pos = 100 + pos;
+                zeroCount = zeroCount + 1;
+            }
+        } else {
+            pos = pos + rotationAmount;
+            if (pos > 99) {
+                pos = pos - 100;
+                zeroCount = zeroCount + 1;
+            }
+        }
+        return Map.entry(pos, zeroCount);
     }
 }
