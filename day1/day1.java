@@ -38,12 +38,12 @@ public class Day1 {
         if (direction.equals("L")) {
             pos = pos - rotationAmount;
             if (pos < 0) {
-                pos = 100 + pos;
+                pos = 100 - (pos % 100) * -1;
             }
         } else {
             pos = pos + rotationAmount;
             if (pos > 99) {
-                pos = pos - 100;
+                pos = pos % 100;
             }
         }
         return pos;
