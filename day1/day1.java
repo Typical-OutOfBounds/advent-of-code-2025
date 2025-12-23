@@ -90,19 +90,27 @@ public class Day1 {
             zeroCount += rotationAmount / 100;
             rotationAmount = rotationAmount % 100;
         }
+        int newPos;
         if (direction.equals("L")) {
-            pos = pos - rotationAmount;
-            if (pos < 0) {
-                pos = 100 + pos;
+            newPos = pos - rotationAmount;
+            
+            if (newPos == 0) {
                 zeroCount = zeroCount + 1;
             }
+            if (newPos < 0) {
+                if (pos != 0) { // make sure we didn't start at zero and double count
+                    zeroCount = zeroCount + 1;
+                }
+                newPos = 100 + newPos;
+            }
+            
         } else {
-            pos = pos + rotationAmount;
-            if (pos > 99) {
-                pos = pos - 100;
+            newPos = pos + rotationAmount;
+            if (newPos > 99) {
+                newPos = newPos - 100;
                 zeroCount = zeroCount + 1;
             }
         }
-        return Map.entry(pos, zeroCount);
+        return Map.entry(newPos, zeroCount);
     }
 }
