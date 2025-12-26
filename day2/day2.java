@@ -9,7 +9,15 @@ public class Day2 {
     public static void main(String[] args) {
         String filename = args[0];
         List<Integer[]> ranges = readRanges(filename);
-        System.out.println(Arrays.toString(ranges.get(0)));
+        
+        int totalCount = 0;
+        for (Integer[] range: ranges) {
+            totalCount = totalCount + checkRange(range[0], range[1]);
+        }
+
+        // totalCount = totalCount + checkRange(ranges.get(1)[0], ranges.get(1)[1]);
+
+        System.out.println(totalCount);
     }
 
     public static List<Integer[]> readRanges(String filename) {
@@ -30,5 +38,32 @@ public class Day2 {
             e.printStackTrace();
         }
         return rangeList;
+    }
+
+    public static Integer checkRange(int start, int end) {
+        int count = 0;
+
+        String startStr = String.valueOf(start);
+        String currStr = startStr;
+
+        int testCount = 0;
+        while (Integer.parseInt(currStr) <= end) {
+            System.out.println(currStr);
+            if (currStr.length() % 2 == 0) {
+                String firstHalf = currStr.substring(0, currStr.length() / 2);
+                System.out.println("First Half: " + firstHalf);
+                String firstHalfDouble = firstHalf + firstHalf;
+                Integer firstHalfDoubleValue = Integer.parseInt(firstHalfDouble);
+                if (firstHalfDoubleValue >= start && firstHalfDoubleValue <= end) {
+                    count = count + firstHalfDoubleValue;
+                }
+                currStr = String.valueOf(Integer.parseInt(firstHalf) + 1) + firstHalf;
+            } else {
+                currStr = "1" + "0".repeat(currStr.length());
+            }
+            testCount = testCount + 1;
+        }
+        
+        return count;
     }
 }
