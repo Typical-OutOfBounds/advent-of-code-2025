@@ -8,10 +8,10 @@ import java.util.Scanner;
 public class Day2 {
     public static void main(String[] args) {
         String filename = args[0];
-        List<Integer[]> ranges = readRanges(filename);
+        List<Long[]> ranges = readRanges(filename);
         
-        int totalCount = 0;
-        for (Integer[] range: ranges) {
+        Long totalCount = 0L;
+        for (Long[] range: ranges) {
             totalCount = totalCount + checkRange(range[0], range[1]);
         }
 
@@ -20,9 +20,9 @@ public class Day2 {
         System.out.println(totalCount);
     }
 
-    public static List<Integer[]> readRanges(String filename) {
+    public static List<Long[]> readRanges(String filename) {
         File myFile = new File(filename);
-        List<Integer[]> rangeList = new ArrayList<>();
+        List<Long[]> rangeList = new ArrayList<>();
         
         try (Scanner myReader = new Scanner(myFile)) {
             while (myReader.hasNextLine()) {
@@ -30,7 +30,7 @@ public class Day2 {
                 String[] ranges = line.split(",");
                 for (String range : ranges) {
                     String[] limits = range.split("-");
-                    rangeList.add(new Integer[]{Integer.parseInt(limits[0]), Integer.parseInt(limits[1])});
+                    rangeList.add(new Long[]{Long.parseLong(limits[0]), Long.parseLong(limits[1])});
                 }
             }
         } catch (FileNotFoundException e) {
@@ -40,24 +40,22 @@ public class Day2 {
         return rangeList;
     }
 
-    public static Integer checkRange(int start, int end) {
-        int count = 0;
+    public static Long checkRange(Long start, Long end) {
+        Long count = 0L;
 
         String startStr = String.valueOf(start);
         String currStr = startStr;
 
-        int testCount = 0;
-        while (Integer.parseInt(currStr) <= end) {
-            System.out.println(currStr);
+        Long testCount = 0L;
+        while (Long.parseLong(currStr) <= end) {
             if (currStr.length() % 2 == 0) {
                 String firstHalf = currStr.substring(0, currStr.length() / 2);
-                System.out.println("First Half: " + firstHalf);
                 String firstHalfDouble = firstHalf + firstHalf;
-                Integer firstHalfDoubleValue = Integer.parseInt(firstHalfDouble);
+                Long firstHalfDoubleValue = Long.parseLong(firstHalfDouble);
                 if (firstHalfDoubleValue >= start && firstHalfDoubleValue <= end) {
                     count = count + firstHalfDoubleValue;
                 }
-                currStr = String.valueOf(Integer.parseInt(firstHalf) + 1) + firstHalf;
+                currStr = String.valueOf(Long.parseLong(firstHalf) + 1) + firstHalf;
             } else {
                 currStr = "1" + "0".repeat(currStr.length());
             }
